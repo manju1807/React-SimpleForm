@@ -158,45 +158,71 @@ const Home = () => {
         </div>
         <div className="mt-3">
           {tableData.length > 0 && (
-            <div className="bg-[#fff] p-1 rounded-[5px]">
-              <h2 className="text-xl font-bold mb-2 p-1">Submitted Data:</h2>
-              <table className="w-full">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Gender</th>
-                    <th>Date of Birth</th>
-                    <th>Phone</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {tableData.map((item, index) => (
-                    <tr key={index}>
-                      <td>{item.name}</td>
-                      <td>{item.email}</td>
-                      <td>{item.gender}</td>
-                      <td>{item.dob}</td>
-                      <td>{item.phone}</td>
-                      <td>
-                        <button
-                          onClick={() => handleEdit(index)}
-                          className="text-blue-500 mr-2"
-                        >
-                          Edit
-                        </button>
-                        <button
-                          onClick={() => handleDelete(index)}
-                          className="text-red-500"
-                        >
-                          Delete
-                        </button>
-                      </td>
+            <div className="bg-white rounded-md shadow-md">
+              <h2 className="text-[1.2rem] italic text-white bg-gray-900 font-medium mb-2 p-1 pl-2">
+                Submitted Data:
+              </h2>
+              <div className="overflow-x-auto">
+                <table className="min-w-full divide-y divide-gray-200">
+                  <thead className="bg-gray-50">
+                    <tr>
+                      <th className="px-4 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Name
+                      </th>
+                      <th className="px-4 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Email
+                      </th>
+                      <th className="px-4 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Gender
+                      </th>
+                      <th className="px-4 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Date of Birth
+                      </th>
+                      <th className="px-4 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Phone
+                      </th>
+                      <th className="px-4 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Actions
+                      </th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody className="bg-white divide-y divide-gray-200">
+                    {tableData.map((item, index) => (
+                      <tr key={index}>
+                        <td className="px-4 py-2 whitespace-nowrap">
+                          {item.name}
+                        </td>
+                        <td className="px-4 py-2 whitespace-nowrap">
+                          {item.email}
+                        </td>
+                        <td className="px-4 py-2 whitespace-nowrap">
+                          {item.gender}
+                        </td>
+                        <td className="px-4 py-2 whitespace-nowrap">
+                          {item.dob}
+                        </td>
+                        <td className="px-4 py-2 whitespace-nowrap">
+                          {item.phone}
+                        </td>
+                        <td className="px-4 py-2 whitespace-nowrap">
+                          <button
+                            onClick={() => handleEdit(index)}
+                            className="text-blue-500 hover:underline mr-2"
+                          >
+                            Edit
+                          </button>
+                          <button
+                            onClick={() => handleDelete(index)}
+                            className="text-red-500 hover:underline"
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
           )}
         </div>
