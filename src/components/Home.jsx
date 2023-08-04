@@ -83,7 +83,7 @@ const Home = () => {
                     label: "Gender",
                     name: "gender",
                     type: "select",
-                    options: ["Male", "Female", "Others"],
+                    options: ["Select", "Male", "Female", "Others"],
                   },
                   { label: "Date of Birth", name: "dob", type: "date" },
                   { label: "Phone", name: "phone" },
@@ -97,7 +97,7 @@ const Home = () => {
                         name={name}
                         value={inputs[name]}
                         onChange={handleChange}
-                        className="appearance-none italic bg-transparent border-none w-fit text-white mr-3 py-1 px-2 leading-tight focus:outline-none"
+                        className="appearance-none italic bg-transparent border-b w-fit text-white mr-3 py-1 px-2 leading-tight focus:outline-none"
                       >
                         {options.map((option) => (
                           <option key={option} value={option.toLowerCase()}>
@@ -112,7 +112,7 @@ const Home = () => {
                         value={inputs[name]}
                         onChange={handleChange}
                         placeholder={`Enter your ${label}`}
-                        className="appearance-none italic bg-transparent border-none w-full text-white mr-3 py-1 px-2 leading-tight focus:outline-none"
+                        className="appearance-none italic bg-transparent  w-full border-cyan-500 border-b-[1.8px] focus:border-cyan-200 text-white mr-3 py-1 px-2 leading-tight focus:outline-none"
                       />
                     )}
                   </div>
@@ -120,7 +120,7 @@ const Home = () => {
                 <div className="mt-3 grid">
                   <button
                     type="submit"
-                    className="mt-6 px-4 py-2 rounded-sm bg-green-500 font-semibold text-white"
+                    className="mt-6 px-4 py-2 rounded-sm bg-green-600 hover:bg-green-500 font-semibold text-white"
                   >
                     {editClick ? "Update" : "Submit"}
                   </button>
