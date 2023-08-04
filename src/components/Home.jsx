@@ -66,7 +66,7 @@ const Home = () => {
           <div className="flex rounded-[5px]">
             <div className="w-1/2 bg-black">
               <img
-                src="/src/assets/img.jpg"
+                src="/src/img.jpeg"
                 alt="Your Image"
                 className="object-cover w-full h-full"
               />
