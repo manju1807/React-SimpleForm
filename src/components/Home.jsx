@@ -4,10 +4,12 @@ const Home = () => {
   const [inputs, setInputs] = useState({
     name: "",
     email: "",
+    gender: "",
+    dob: "",
+    phone: "",
   });
 
   const handleChange = (e) => {
-    console.log(e.target.value);
     setInputs({
       ...inputs,
       [e.target.name]: e.target.value,
@@ -21,8 +23,14 @@ const Home = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!inputs.name || !inputs.email) {
-      alert("Both name and email fields are required.");
+    if (
+      !inputs.name ||
+      !inputs.email ||
+      !inputs.gender ||
+      !inputs.dob ||
+      !inputs.phone
+    ) {
+      alert("All fields are required.");
       return;
     }
 
@@ -31,17 +39,18 @@ const Home = () => {
       tempTableData[editIndex] = inputs;
       setTableData(tempTableData);
       setEditClick(false);
-      setInputs({
-        name: "",
-        email: "",
-      });
+      setEditIndex("");
     } else {
       setTableData([...tableData, inputs]);
-      setInputs({
-        name: "",
-        email: "",
-      });
     }
+
+    setInputs({
+      name: "",
+      email: "",
+      gender: "",
+      dob: "",
+      phone: "",
+    });
   };
 
   const handleDelete = (index) => {
@@ -51,85 +60,148 @@ const Home = () => {
 
   const handleEdit = (index) => {
     const tempData = tableData[index];
-    setInputs({ name: tempData.name, email: tempData.email });
+    setInputs({
+      name: tempData.name,
+      email: tempData.email,
+      gender: tempData.gender,
+      dob: tempData.dob,
+      phone: tempData.phone,
+    });
     setEditClick(true);
     setEditIndex(index);
   };
 
   return (
-    <>
-      <div className="italic bg-purple-600 text-center text-white text-2xl font-bold h-12 p-2">
-        <h1>Simple Form</h1>
+    <div className="bg-gradient-to-t from-[#ff9efa] to-[#b988fd] min-h-screen flex items-center justify-center rounded-[5px]">
+      <div className="w-[700px] overflow-hidden bg-transparent rounded-[5px]">
+        <div className="rounded-[5px]">
+          <div className="flex rounded-[5px]">
+            <div className="w-1/2 bg-black">
+              <img
+                src="/src/assets/img.jpg"
+                alt="Your Image"
+                className="object-cover w-full h-full"
+              />
+            </div>
+            <div className="w-1/2 p-6 bg-gray-900 text-white">
+              <h1 className="text-2xl text-center font-sans italic font-bold">
+                Register Now!
+              </h1>
+              <form onSubmit={handleSubmit} className="mt-4">
+                <label htmlFor="name" className="block font-bold mb-1">
+                  Name
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  value={inputs.name}
+                  onChange={handleChange}
+                  placeholder="Enter your Name"
+                  className="input-style text-[#383838] italic p-1 rounded-sm"
+                />
+                <label htmlFor="email" className="block font-bold mb-1 mt-2">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  value={inputs.email}
+                  onChange={handleChange}
+                  placeholder="Enter your Email"
+                  className="input-style text-[#383838] italic p-1 rounded-sm"
+                />
+                <label htmlFor="gender" className="block font-bold mb-1 mt-2">
+                  Gender
+                </label>
+                <select
+                  name="gender"
+                  value={inputs.gender}
+                  onChange={handleChange}
+                  className="input-style text-[#6a6a6a] px-3 py-1 rounded border italic bg-white border-gray-300 focus:outline-none focus:ring focus:border-blue-300"
+                >
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="others">Others</option>
+                </select>
+
+                <label htmlFor="dob" className="block font-bold mb-1 mt-2">
+                  Date of Birth
+                </label>
+                <input
+                  type="date"
+                  name="dob"
+                  value={inputs.dob}
+                  onChange={handleChange}
+                  placeholder="date of birth"
+                  className="input-style text-[#515151] italic p-1 rounded-sm"
+                />
+                <label htmlFor="phone" className="block font-bold mb-1 mt-2">
+                  Phone
+                </label>
+                <input
+                  type="text"
+                  name="phone"
+                  value={inputs.phone}
+                  onChange={handleChange}
+                  placeholder="phone number"
+                  className="input-style text-[#383838] italic p-1 rounded-sm"
+                />
+                <button
+                  type="submit"
+                  className="mt-4 px-4 py-2 rounded-sm bg-green-500 text-white w-full"
+                >
+                  {editClick ? "Update" : "Submit"}
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div className="mt-3">
+          {tableData.length > 0 && (
+            <div className="bg-[#fff] p-1 rounded-[5px]">
+              <h2 className="text-xl font-bold mb-2 p-1">Submitted Data:</h2>
+              <table className="w-full">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Gender</th>
+                    <th>Date of Birth</th>
+                    <th>Phone</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {tableData.map((item, index) => (
+                    <tr key={index}>
+                      <td>{item.name}</td>
+                      <td>{item.email}</td>
+                      <td>{item.gender}</td>
+                      <td>{item.dob}</td>
+                      <td>{item.phone}</td>
+                      <td>
+                        <button
+                          onClick={() => handleEdit(index)}
+                          className="text-blue-500 mr-2"
+                        >
+                          Edit
+                        </button>
+                        <button
+                          onClick={() => handleDelete(index)}
+                          className="text-red-500"
+                        >
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
       </div>
-      <div className="sm: w-[430px] lg:w-[430px] text-white m-auto mt-[40px]">
-        <form
-          onSubmit={handleSubmit}
-          className="bg-purple-600 p-4 rounded-[3px]"
-        >
-          <label htmlFor="name" className="text-white font-bold">
-            Name
-          </label>
-          <input
-            type="text"
-            name="name"
-            value={inputs.name}
-            onChange={handleChange}
-            placeholder="Enter your name here!!"
-            className="border-black placeholder-slate-500 text-[#353535] w-full p-2 my-1 rounded-sm"
-          />
-          <label htmlFor="email" className="text-white font-bold">
-            Email
-          </label>
-          <input
-            type="email"
-            name="email"
-            value={inputs.email}
-            onChange={handleChange}
-            placeholder="Enter your email here!!"
-            className="border-black placeholder-slate-500 text-[#353535] w-full p-2 my-1 rounded-sm"
-          />
-          <button
-            type="submit"
-            className="block mx-auto px-4 py-2 rounded-sm mt-2 bg-[#55f144] text-[#ffffff]"
-          >
-            Submit
-          </button>
-        </form>
-      </div>
-      <div>
-        <table className="w-full border-collapse text-center mt-10">
-          <thead className="bg-purple-600 text-white font-mono font-bold  italic">
-            <tr>
-              <th className="py-2 px-4 font-semibold">Name</th>
-              <th className="py-2 px-4 font-semibold">Email</th>
-              <th className="py-2 px-4 font-semibold">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {tableData.map((item, index) => (
-              <tr key={index} className="bg-gray-100">
-                <td className="py-2 px-4">{item.name}</td>
-                <td className="py-2 px-4">{item.email}</td>
-                <td className="py-2 px-4 flex justify-center items-center space-x-2">
-                  <button
-                    onClick={() => handleEdit(index)}
-                    className="px-4 py-2 bg-[#fcff45] border-[#4d4d4d] border-[1px] text-black rounded hover:bg-[#fdff6b] focus:outline-none focus:ring focus:ring-yellow-300"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => handleDelete(index)}
-                    className="px-4 py-2 bg-[#f22] text-white border-[#4d4d4d] border-[1px] font-semibold rounded hover:bg-red-500 focus:outline-none focus:ring focus:ring-red-400"
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </>
+    </div>
   );
 };
 
